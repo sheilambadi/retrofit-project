@@ -2,9 +2,12 @@ package com.sheilambadi.android.retrofitproject.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.sheilambadi.android.retrofitproject.R;
+import com.sheilambadi.android.retrofitproject.adapter.MoviesAdapter;
 import com.sheilambadi.android.retrofitproject.model.Movie;
 import com.sheilambadi.android.retrofitproject.model.MovieResponse;
 import com.sheilambadi.android.retrofitproject.rest.ApiClient;
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //RecyclerView to be populated
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         //implement the interface methods to make HTTP call/request
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<MovieResponse> call = apiService.getTopRatedMovies(API_KEY);
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 List<Movie> movies = response.body().getResults();
                 Log.d(TAG, "Number of movies received " + movies.size());
+                recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
             }
 
             @Override
