@@ -52,7 +52,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         holder.movieTitle.setText(movies.get(position).getTitle());
         holder.movieReleaseDate.setText((movies.get(position).getReleaseDate()));
         holder.movieDescription.setText(movies.get(position).getOverview());
-        holder.movieRating.setText(movies.get(position).getReleaseDate());
+        holder.movieRating.setText(movies.get(position).getVoteAverage().toString());
     }
 
     @Override
