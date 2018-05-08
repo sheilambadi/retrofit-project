@@ -109,6 +109,7 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
                         .error(new ColorDrawable(Color.GRAY))
                         .thumbnail(0.1f)
                         .into(movieVH.poster);
+                movieVH.posterLoading.setVisibility(View.VISIBLE);
                 movieVH.movieTitle.setText(movie.getOriginalTitle());
                 // Todo: display genres
                 movieVH.movieGenres.setText(movie.getReleaseDate());
