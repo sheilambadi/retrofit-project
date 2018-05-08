@@ -34,7 +34,7 @@ import java.util.List;
 public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int ITEM = 0;
     private static final int LOADING = 1;
-    private static final String BASE_URL_IMG = "https://image.tmdb.org/t/p/w150";
+    private static final String BASE_URL_IMG = "https://image.tmdb.org/t/p/original";
 
     private List<Movie> movieResults;
     private Context context;
@@ -65,7 +65,7 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
                 viewHolder = getViewHolder(parent, inflater);
                 break;
             case LOADING:
-                View v2 = inflater.inflate(R.layout.list_item_movie, parent, false);
+                View v2 = inflater.inflate(R.layout.item_progress, parent, false);
                 viewHolder = new LoadingVH(v2);
                 break;
         }
@@ -105,8 +105,8 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
                             }
                         })
                         .diskCacheStrategy(DiskCacheStrategy.ALL)   // cache both original & resized image
-                        .centerCrop()
-                        .placeholder(new ColorDrawable(Color.GRAY))
+                        .error(new ColorDrawable(Color.GRAY))
+                        .thumbnail(0.1f)
                         .into(movieVH.poster);
                 movieVH.movieTitle.setText(movie.getOriginalTitle());
                 // Todo: display genres

@@ -22,11 +22,10 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/img_card"
-                android:layout_width="92dp"
-                android:layout_height="92dp"
-                android:scaleType="centerCrop"
-                android:layout_marginRight="8dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:layout_width="124dp"
+                android:layout_height="165dp"
+                android:scaleType="fitXY"
+                android:layout_marginRight="8dp" />
 
             <ProgressBar
                 android:id="@+id/pb_movies_list_img"
@@ -54,15 +53,7 @@
             android:layout_below="@id/tv_movie_title"
             tools:text="8.0/10"/>
 
-        <ImageView
-            android:id="@+id/img_imdb"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/imdbss"
-            android:layout_below="@id/tv_movie_title"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
-            />
+
 
         <TextView
             android:id="@+id/tv_movie_genres"

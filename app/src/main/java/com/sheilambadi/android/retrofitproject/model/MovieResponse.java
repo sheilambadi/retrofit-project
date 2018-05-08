@@ -17,6 +17,9 @@ public class MovieResponse implements Parcelable{
     @SerializedName("total_pages")
     private int totalPages;
 
+    public MovieResponse() {
+    }
+
     protected MovieResponse(Parcel in) {
         page = in.readInt();
         results = in.createTypedArrayList(Movie.CREATOR);

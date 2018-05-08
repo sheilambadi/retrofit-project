@@ -5,10 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_movies_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -19,7 +16,6 @@
             android:paddingTop="24dp"
             />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/pb_movies_list"
