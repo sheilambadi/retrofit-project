@@ -19,4 +19,7 @@ public interface ApiInterface {
     //endpoint to a specific movie
     @GET("movie/{id}")
     Call<MovieResponse> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey);
+
+    @GET("/genre/movie/list")
+    Call<MovieResponse> getGenreList(@Query("api_key") String apiKey);
 }
