@@ -87,6 +87,7 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
         switch (getItemViewType(position)){
             case ITEM:
                 final MovieVH movieVH = (MovieVH) holder;
+                movieVH.posterLoading.setVisibility(View.VISIBLE);
 
                 GlideApp.with(context)
                         .load(BASE_URL_IMG + movie.getPosterPath())
@@ -116,7 +117,7 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 break;
             case LOADING:
-                // do nothing
+               // do nothing
                 break;
         }
 
