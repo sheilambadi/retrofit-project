@@ -1,6 +1,7 @@
 package com.sheilambadi.android.retrofitproject.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     Context context;
 
     public class MovieViewHolder extends  RecyclerView.ViewHolder{
-        LinearLayout moviesLayout;
+        CardView moviesLayout;
         TextView movieTitle;
         TextView movieReleaseDate;
         TextView movieDescription;
@@ -27,11 +28,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
         public MovieViewHolder(View itemView) {
             super(itemView);
-            moviesLayout = (LinearLayout) itemView.findViewById(R.id.movies_layout);
-            movieTitle = (TextView) itemView.findViewById(R.id.title);
-            movieReleaseDate = (TextView) itemView.findViewById(R.id.release_date);
-            movieDescription = (TextView) itemView.findViewById(R.id.description);
-            movieRating = (TextView) itemView.findViewById(R.id.rating);
+            moviesLayout =  itemView.findViewById(R.id.movies_layout);
+            movieTitle = (TextView) itemView.findViewById(R.id.tv_movie_title);
+            movieReleaseDate = (TextView) itemView.findViewById(R.id.tv_movie_genres);
+            movieDescription = (TextView) itemView.findViewById(R.id.tv_movie_description);
+            movieRating = (TextView) itemView.findViewById(R.id.tv_ratings);
         }
     }
 
