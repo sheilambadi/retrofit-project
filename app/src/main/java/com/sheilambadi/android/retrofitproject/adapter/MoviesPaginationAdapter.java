@@ -88,13 +88,13 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
             case ITEM:
                 final MovieVH movieVH = (MovieVH) holder;
                 movieVH.posterLoading.setVisibility(View.VISIBLE);
-
                 GlideApp.with(context)
                         .load(BASE_URL_IMG + movie.getPosterPath())
                         .listener(new RequestListener<Drawable>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show();
+                                // Todo handle failure
+                                //Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show();
                                 return false;
                             }
 
@@ -109,11 +109,10 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
                         .error(new ColorDrawable(Color.GRAY))
                         .thumbnail(0.1f)
                         .into(movieVH.poster);
-                movieVH.posterLoading.setVisibility(View.VISIBLE);
                 movieVH.movieTitle.setText(movie.getOriginalTitle());
                 // Todo: display genres
                 movieVH.movieGenres.setText(movie.getReleaseDate());
-                movieVH.movieRating.setText(movie.getVoteAverage().toString());
+                movieVH.movieRating.setText(movie.getVoteAverage().toString() + " / 10");
                 movieVH.movieDescription.setText(movie.getOverview());
 
                 break;

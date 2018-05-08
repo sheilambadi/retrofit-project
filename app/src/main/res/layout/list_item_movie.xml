@@ -9,7 +9,9 @@
     android:layout_marginTop="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    tools:ignore="contentDescription">
+    tools:ignore="MissingPrefix"
+    android:elevation="8dp"
+    app:cardCornerRadius="4dp">
 
 
     <RelativeLayout
@@ -43,6 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/rl_img_card"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.FontPath"
             tools:text="Peter Rabbit"/>
 
         <TextView
@@ -51,6 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/rl_img_card"
             android:layout_below="@id/tv_movie_title"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
             tools:text="8.0/10"/>
 
 
@@ -61,6 +67,9 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/rl_img_card"
             android:layout_below="@id/tv_ratings"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
             tools:text="Comedy, Animation"/>
 
         <TextView
@@ -71,17 +80,13 @@
             android:layout_below="@id/tv_movie_genres"
             android:maxLines="3"
             android:ellipsize="end"
+            android:paddingRight="8dp"
+            android:layout_marginTop="4dp"
+            android:letterSpacing=".05"
+            android:textAppearance="@style/TextViewCustomFont"
             tools:text="These blocks can be organized to promote different types of content. Let’s consider some possible"/>
 
-        <ImageView
-            android:id="@+id/img_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/like"
-            android:layout_below="@id/tv_movie_description"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
-         />
+
     </RelativeLayout>
 
 
