@@ -13,13 +13,14 @@ public class ApplicationLaunched extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
     }
 
     public static synchronized ApplicationLaunched getInstance(){
         return instance;
     }
 
-    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener){
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
         ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 }

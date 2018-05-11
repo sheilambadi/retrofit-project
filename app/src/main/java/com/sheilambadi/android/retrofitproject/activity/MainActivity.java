@@ -1,8 +1,8 @@
 package com.sheilambadi.android.retrofitproject.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +13,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.sheilambadi.android.retrofitproject.R;
-import com.sheilambadi.android.retrofitproject.adapter.MoviesAdapter;
 import com.sheilambadi.android.retrofitproject.adapter.MoviesPaginationAdapter;
 import com.sheilambadi.android.retrofitproject.model.Movie;
 import com.sheilambadi.android.retrofitproject.model.MovieResponse;
 import com.sheilambadi.android.retrofitproject.rest.ApiClient;
 import com.sheilambadi.android.retrofitproject.rest.ApiInterface;
+import com.sheilambadi.android.retrofitproject.utils.ApplicationLaunched;
+import com.sheilambadi.android.retrofitproject.utils.ConnectivityReceiver;
 import com.sheilambadi.android.retrofitproject.utils.PaginationScrollListener;
 
 import java.util.List;
@@ -30,7 +31,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener{
     private static final String TAG = MainActivity.class.getSimpleName();
 
     MoviesPaginationAdapter moviesPaginationAdapter;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         recyclerView.setAdapter(moviesPaginationAdapter);
-
+        //checkConnection();
         recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 return isLoading;
             }
         });
-        
+
         // initialize service amd load data
         movieService = ApiClient.getClient().create(ApiInterface.class);
         loadFirstPage();
@@ -103,10 +104,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent i = new Intent(MainActivity.this, NoInternetActivity.class);
+        //startActivity(i);
+        // register connection status listener
+        ApplicationLaunched.getInstance().setConnectivityListener(this);
+        new ConnectivityReceiver().onReceive(this, i);
+    }
+
+    @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
 
     private void loadFirstPage() {
         Log.d(TAG, "loadFirstPage: ");
@@ -130,7 +141,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
                 //Todo: handle failure
-                Toast.makeText(getApplicationContext(), "Failed to load movies on first page", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Failed to load movies on first page", Toast.LENGTH_SHORT).show();
+                /*boolean isConnected = ConnectivityReceiver.isConnected();
+                checkInternetConnection(isConnected);*/
             }
         });
     }
@@ -162,5 +175,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void checkInternetConnection(boolean isConnected){
+        if(!isConnected){
+            Intent i = new Intent(MainActivity.this, NoInternetActivity.class);
+            startActivity(i);
+        } /*else {
+            startActivity(new Intent(this, MainActivity.class));
+        }*/
+    }
+
+    /**
+     * Callback will be triggered when there is change in
+     * network connection
+     */
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        checkInternetConnection(isConnected);
     }
 }
