@@ -8,10 +8,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.sheilambadi.android.retrofitproject.R;
 import com.sheilambadi.android.retrofitproject.adapter.MoviesPaginationAdapter;
 import com.sheilambadi.android.retrofitproject.model.Movie;
@@ -101,6 +104,23 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         movieService = ApiClient.getClient().create(ApiInterface.class);
         loadFirstPage();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_logout){
+            // Toast.makeText(this, "Logout clicked", Toast.LENGTH_LONG).show();
+            FirebaseAuth.getInstance().signOut();
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+        }
+        return true;
     }
 
     @Override

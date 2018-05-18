@@ -13,7 +13,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -26,20 +25,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.sheilambadi.android.retrofitproject.R;
 
-import java.util.Arrays;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RC_SIGN_IN = 9001;
     private static final String TAG = "LoginActivity";
     private static final String EMAIL = "email";
+    private static final String PROFILE = "public_profile";
     private FirebaseAuth firebaseAuth;
     GoogleSignInClient googleSignInClient;
-    AccessToken accessToken;
     CallbackManager callbackManager;
 
     @Override
@@ -72,32 +70,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         LoginButton mLoginButton = findViewById(R.id.fb_login_button);
 
         // Set the initial permissions to request from the user while logging in
-        mLoginButton.setReadPermissions(Arrays.asList(EMAIL));
+        mLoginButton.setReadPermissions(EMAIL, PROFILE);
 
-        // accessToken = AccessToken.getCurrentAccessToken();
-        /*boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
-        if (isLoggedIn){
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(i);
-        }*/
 
         // Register a callback to respond to the user
-        LoginManager.getInstance().registerCallback(callbackManager,
+        mLoginButton.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         setResult(RESULT_OK);
-                        accessToken = AccessToken.getCurrentAccessToken();
-
-                        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
-                        if (isLoggedIn){
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(i);
-                        }
-                        finish();
+                        handleFacebookAccessToken(loginResult.getAccessToken());
                     }
 
                     @Override
@@ -114,16 +97,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Snackbar.make(findViewById(R.id.login_layout), "Login failed " + exception.toString(), Snackbar.LENGTH_SHORT).show();
                     }
                 });
+    }
 
-        accessToken = AccessToken.getCurrentAccessToken();
-
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
-        if (isLoggedIn){
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }
+    private void handleFacebookAccessToken(AccessToken accessToken) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            // sign in is successful, update UI
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            updateUI(user);
+                            saveUserData(user);
+                        } else {
+                            Snackbar.make(findViewById(R.id.login_layout), "Facebook Login failed", Snackbar.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -200,7 +192,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Snackbar.make(findViewById(R.id.login_layout), "Login failed", Snackbar.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
                     }
                 });
     }
