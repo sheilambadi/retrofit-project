@@ -29,6 +29,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    // facebook log in
+    implementation 'com.facebook.android:facebook-login:4.33.0'
+
     //swipe to refresh layout
     implementation 'com.android.support:support-v4:27.1.1'
 

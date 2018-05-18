@@ -9,6 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,11 +31,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.sheilambadi.android.retrofitproject.R;
 
+import java.util.Arrays;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RC_SIGN_IN = 9001;
     private static final String TAG = "LoginActivity";
+    private static final String EMAIL = "email";
     private FirebaseAuth firebaseAuth;
     GoogleSignInClient googleSignInClient;
+    AccessToken accessToken;
+    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +65,65 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // get shared instance of FirebaseAuth object
         firebaseAuth = FirebaseAuth.getInstance();
+
+        // facebook login
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginButton mLoginButton = findViewById(R.id.fb_login_button);
+
+        // Set the initial permissions to request from the user while logging in
+        mLoginButton.setReadPermissions(Arrays.asList(EMAIL));
+
+        // accessToken = AccessToken.getCurrentAccessToken();
+        /*boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        if (isLoggedIn){
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+        }*/
+
+        // Register a callback to respond to the user
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                        setResult(RESULT_OK);
+                        accessToken = AccessToken.getCurrentAccessToken();
+
+                        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+                        if (isLoggedIn){
+                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(i);
+                        }
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                        setResult(RESULT_CANCELED);
+                        Snackbar.make(findViewById(R.id.login_layout), "Login failed", Snackbar.LENGTH_SHORT).show();
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                        Snackbar.make(findViewById(R.id.login_layout), "Login failed " + exception.toString(), Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+
+        accessToken = AccessToken.getCurrentAccessToken();
+
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        if (isLoggedIn){
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 
     @Override
@@ -68,6 +139,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(user != null){
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 
@@ -89,6 +161,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // facebook login
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 
         // result returned from sign in intent
         if (requestCode == RC_SIGN_IN){
