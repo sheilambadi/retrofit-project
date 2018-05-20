@@ -20,8 +20,8 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sheilambadi.android.retrofitproject.R;
 import com.sheilambadi.android.retrofitproject.adapter.TabsPagerAdapter;
+import com.sheilambadi.android.retrofitproject.fragments.PopularMoviesFragment;
 import com.sheilambadi.android.retrofitproject.fragments.BrowseMoviesFragment;
-import com.sheilambadi.android.retrofitproject.fragments.GroupMoviesFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -48,7 +48,7 @@ public class NavigationActivity extends AppCompatActivity
             getSupportActionBar().setTitle("Browse Movies");
         }
 
-        openFragment(new GroupMoviesFragment(), "Browse Movies");
+        openFragment(new BrowseMoviesFragment(), "Browse Movies");
 
 
 
@@ -106,7 +106,7 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_browse_movies) {
-            openFragment(new GroupMoviesFragment(), "Browse Movies");
+            openFragment(new BrowseMoviesFragment(), "Browse Movies");
         } else if (id == R.id.nav_categories) {
 
         } else if (id == R.id.nav_profile) {

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -109,7 +108,7 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
                         .error(new ColorDrawable(Color.GRAY))
                         .thumbnail(0.1f)
                         .into(movieVH.poster);
-                movieVH.movieTitle.setText(movie.getOriginalTitle());
+                movieVH.movieTitle.setText(movie.getTitle());
                 // Todo: display genres
                 movieVH.movieGenres.setText(movie.getReleaseDate());
                 movieVH.movieRating.setText(movie.getVoteAverage().toString() + " / 10");
