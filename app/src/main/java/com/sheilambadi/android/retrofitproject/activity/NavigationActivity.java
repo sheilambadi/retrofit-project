@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sheilambadi.android.retrofitproject.R;
+import com.sheilambadi.android.retrofitproject.adapter.TabsPagerAdapter;
 import com.sheilambadi.android.retrofitproject.fragments.BrowseMoviesFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -26,6 +29,8 @@ public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     Fragment openFragment = null;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,13 @@ public class NavigationActivity extends AppCompatActivity
             getSupportActionBar().setTitle("Browse Movies");
         }
 
-        openFragment(new BrowseMoviesFragment(), "Browse Movies");
+        // openFragment(new BrowseMoviesFragment(), "Browse Movies");
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,6 +69,14 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new BrowseMoviesFragment(), "Popular");
+        adapter.addFragment(new BrowseMoviesFragment(), "Latest");
+        adapter.addFragment(new BrowseMoviesFragment(), "Top Rated");
+        viewPager.setAdapter(adapter);
     }
 
     @Override
