@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.sheilambadi.android.retrofitproject.R;
 import com.sheilambadi.android.retrofitproject.adapter.TabsPagerAdapter;
 import com.sheilambadi.android.retrofitproject.fragments.BrowseMoviesFragment;
+import com.sheilambadi.android.retrofitproject.fragments.GroupMoviesFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -29,8 +30,7 @@ public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     Fragment openFragment = null;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +48,9 @@ public class NavigationActivity extends AppCompatActivity
             getSupportActionBar().setTitle("Browse Movies");
         }
 
-        // openFragment(new BrowseMoviesFragment(), "Browse Movies");
+        openFragment(new GroupMoviesFragment(), "Browse Movies");
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -69,14 +65,6 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BrowseMoviesFragment(), "Popular");
-        adapter.addFragment(new BrowseMoviesFragment(), "Latest");
-        adapter.addFragment(new BrowseMoviesFragment(), "Top Rated");
-        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -118,7 +106,7 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_browse_movies) {
-            openFragment(new BrowseMoviesFragment(), "Browse Movies");
+            openFragment(new GroupMoviesFragment(), "Browse Movies");
         } else if (id == R.id.nav_categories) {
 
         } else if (id == R.id.nav_profile) {
