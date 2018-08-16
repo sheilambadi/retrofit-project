@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,8 @@ import android.view.MenuItem;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sheilambadi.android.retrofitproject.R;
+import com.sheilambadi.android.retrofitproject.adapter.TabsPagerAdapter;
+import com.sheilambadi.android.retrofitproject.fragments.PopularMoviesFragment;
 import com.sheilambadi.android.retrofitproject.fragments.BrowseMoviesFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -26,6 +30,7 @@ public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     Fragment openFragment = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,8 @@ public class NavigationActivity extends AppCompatActivity
         }
 
         openFragment(new BrowseMoviesFragment(), "Browse Movies");
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
