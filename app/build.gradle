@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
+    dataBinding {
+        enabled = true
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.sheilambadi.android.retrofitproject"
@@ -54,7 +57,6 @@ dependencies {
 
     // calligraphy
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
-
 }
 
 apply plugin: 'com.google.gms.google-services'
