@@ -122,6 +122,7 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
                         // Toast.makeText(context, movie.getTitle(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, MovieDetailsActivity.class);
                         intent.putExtra("movieTitle", movie.getTitle());
+                        intent.putExtra("moviePic", movie.getBackdropPath());
                         context.startActivity(intent);
                     }
                 });
