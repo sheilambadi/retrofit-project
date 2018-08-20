@@ -25,7 +25,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.FontPath"
-                    android:textSize="24sp"
                     android:text="Movie Title: " />
 
                 <TextView
@@ -33,14 +32,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing=".05"
-                    android:textSize="18sp"
                     android:textAppearance="@style/TextViewCustomFont"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.FontPath"
-                    android:textSize="24sp"
                     android:text="Release Date: " />
 
                 <TextView
@@ -49,7 +46,6 @@
                     android:layout_height="wrap_content"
                     android:letterSpacing=".05"
                     android:textAppearance="@style/TextViewCustomFont"
-                    android:textSize="18sp"
                     android:text="Release Date: " />
 
                 <TextView
@@ -83,14 +79,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.FontPath"
-                android:textSize="24sp"
                 android:text="Overview: " />
 
             <TextView
                 android:id="@+id/txt_overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:letterSpacing=".05"
                 android:textAppearance="@style/TextViewCustomFont"
                 android:text="Release Date: " />

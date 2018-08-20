@@ -17,8 +17,8 @@ import com.sheilambadi.android.retrofitproject.R;
 import com.sheilambadi.android.retrofitproject.adapter.TabsPagerAdapter;
 import com.sheilambadi.android.retrofitproject.databinding.ActivityMovieDetailsBinding;
 import com.sheilambadi.android.retrofitproject.fragments.MovieDescriptionFragment;
-import com.sheilambadi.android.retrofitproject.fragments.PopularMoviesFragment;
 import com.sheilambadi.android.retrofitproject.fragments.TopRatedFragment;
+import com.sheilambadi.android.retrofitproject.fragments.YoutubeTrailerFragment;
 import com.sheilambadi.android.retrofitproject.model.Movie;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -31,6 +31,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ImageView movieImage;
     String title, releaseDate, overview;
+    int movieId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         title = getIntent().getStringExtra("movieTitle");
         releaseDate = getIntent().getStringExtra("releaseDate");
         overview = getIntent().getStringExtra("overview");
+        movieId = getIntent().getIntExtra("movieId", 1);
 
         viewPager = binding.moviesViewPager;
         setupViewPager(viewPager);
@@ -98,10 +100,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
         return overview;
     }
 
+    public int getMovieId(){
+        return movieId;
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new MovieDescriptionFragment(), "Description");
-        adapter.addFragment(new PopularMoviesFragment(), "Watch Trailers");
+        adapter.addFragment(new YoutubeTrailerFragment(), "Watch Trailers");
         adapter.addFragment(new TopRatedFragment(), "Similar Movies");
         // adapter.addFragment(new UpcomingFragment(), "Upcoming");
         // Todo: Add Latest movies fragment

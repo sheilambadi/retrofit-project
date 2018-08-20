@@ -1,6 +1,7 @@
 package com.sheilambadi.android.retrofitproject.rest;
 
 import com.sheilambadi.android.retrofitproject.model.MovieResponse;
+import com.sheilambadi.android.retrofitproject.model.YoutubeTrailer;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -32,6 +33,10 @@ public interface ApiInterface {
     @GET("movie/{id}")
     Call<MovieResponse> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey);
 
-    @GET("/genre/movie/list")
+    @GET("genre/movie/list")
     Call<MovieResponse> getGenreList(@Query("api_key") String apiKey);
+
+    // endpoint to get trailers
+    @GET("movie/{movie_id}/videos")
+    Call<YoutubeTrailer> getYoutubeTrailer(@Path("movie_id") int id, @Query("api_key") String apiKey);
 }

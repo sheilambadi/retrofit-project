@@ -125,6 +125,8 @@ public class MoviesPaginationAdapter extends RecyclerView.Adapter<RecyclerView.V
                         intent.putExtra("moviePic", movie.getBackdropPath());
                         intent.putExtra("releaseDate", movie.getReleaseDate());
                         intent.putExtra("overview", movie.getOverview());
+                        int id = movie.getId();
+                        intent.putExtra("movieId",id);
 
                         context.startActivity(intent);
                     }
