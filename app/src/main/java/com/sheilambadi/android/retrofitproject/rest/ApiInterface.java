@@ -39,4 +39,8 @@ public interface ApiInterface {
     // endpoint to get trailers
     @GET("movie/{movie_id}/videos")
     Call<YoutubeTrailer> getYoutubeTrailer(@Path("movie_id") int id, @Query("api_key") String apiKey);
+
+    // endpoint to get similar movies
+    @GET("movie/{movie_id}/similar")
+    Call<MovieResponse> getSimilarMovies(@Path("movie_id") int id, @Query("api_key") String apiKey, @Query("page") int pageIndex);
 }

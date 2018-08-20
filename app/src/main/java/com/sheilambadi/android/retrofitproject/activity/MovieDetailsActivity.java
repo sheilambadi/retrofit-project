@@ -17,7 +17,7 @@ import com.sheilambadi.android.retrofitproject.R;
 import com.sheilambadi.android.retrofitproject.adapter.TabsPagerAdapter;
 import com.sheilambadi.android.retrofitproject.databinding.ActivityMovieDetailsBinding;
 import com.sheilambadi.android.retrofitproject.fragments.MovieDescriptionFragment;
-import com.sheilambadi.android.retrofitproject.fragments.TopRatedFragment;
+import com.sheilambadi.android.retrofitproject.fragments.SimilarMoviesFragment;
 import com.sheilambadi.android.retrofitproject.fragments.YoutubeTrailerFragment;
 import com.sheilambadi.android.retrofitproject.model.Movie;
 
@@ -108,7 +108,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new MovieDescriptionFragment(), "Description");
         adapter.addFragment(new YoutubeTrailerFragment(), "Watch Trailers");
-        adapter.addFragment(new TopRatedFragment(), "Similar Movies");
+        adapter.addFragment(new SimilarMoviesFragment(), "Similar Movies");
         // adapter.addFragment(new UpcomingFragment(), "Upcoming");
         // Todo: Add Latest movies fragment
         viewPager.setAdapter(adapter);
