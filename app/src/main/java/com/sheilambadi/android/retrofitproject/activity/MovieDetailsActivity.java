@@ -1,5 +1,6 @@
 package com.sheilambadi.android.retrofitproject.activity;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,10 +16,13 @@ import com.sheilambadi.android.retrofitproject.GlideApp;
 import com.sheilambadi.android.retrofitproject.R;
 import com.sheilambadi.android.retrofitproject.adapter.TabsPagerAdapter;
 import com.sheilambadi.android.retrofitproject.databinding.ActivityMovieDetailsBinding;
-import com.sheilambadi.android.retrofitproject.fragments.NowPlayingFragment;
+import com.sheilambadi.android.retrofitproject.fragments.MovieDescriptionFragment;
 import com.sheilambadi.android.retrofitproject.fragments.PopularMoviesFragment;
 import com.sheilambadi.android.retrofitproject.fragments.TopRatedFragment;
 import com.sheilambadi.android.retrofitproject.model.Movie;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     private static final String BASE_URL_IMG = "https://image.tmdb.org/t/p/original";
@@ -26,13 +30,33 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ImageView movieImage;
+    String title, releaseDate, overview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.activity_movie_details);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/GothicAOne-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
 
         ActivityMovieDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_details);
+
+       // MovieDescriptionFragment descriptionFragment = (MovieDescriptionFragment) getSupportFragmentManager().findFragmentByTag(MovieDescriptionFragment.class.getSimpleName());
+       /* String title = getIntent().getStringExtra("movieTitle");
+        Bundle data = new Bundle();
+        data.putString("titleMovie", title);
+        descriptionFragment.setArguments(data);*/
+
+        /*String title = getIntent().getStringExtra("movieTitle");
+        getSupportFragmentManager().beginTransaction().add(R.id.description_layout, MovieDescriptionFragment.newInstance(title, "Yoh"), "MovieDescriptionFragment").commit()*/;
+
+        title = getIntent().getStringExtra("movieTitle");
+        releaseDate = getIntent().getStringExtra("releaseDate");
+        overview = getIntent().getStringExtra("overview");
+
         viewPager = binding.moviesViewPager;
         setupViewPager(viewPager);
 
@@ -56,9 +80,27 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.setMovie(movie);
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    // TODO: remove this tight coupling
+    public String getMovieTitle(){
+        return title;
+    }
+
+    public String getMovieReleaseDate(){
+        return releaseDate;
+    }
+
+    public String getMovieOverview(){
+        return overview;
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new NowPlayingFragment(), "Description");
+        adapter.addFragment(new MovieDescriptionFragment(), "Description");
         adapter.addFragment(new PopularMoviesFragment(), "Watch Trailers");
         adapter.addFragment(new TopRatedFragment(), "Similar Movies");
         // adapter.addFragment(new UpcomingFragment(), "Upcoming");

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/description_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.MovieDescriptionFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="8dp">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+               >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.FontPath"
+                    android:textSize="24sp"
+                    android:text="Movie Title: " />
+
+                <TextView
+                    android:id="@+id/txt_movie_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing=".05"
+                    android:textSize="18sp"
+                    android:textAppearance="@style/TextViewCustomFont"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.FontPath"
+                    android:textSize="24sp"
+                    android:text="Release Date: " />
+
+                <TextView
+                    android:id="@+id/txt_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing=".05"
+                    android:textAppearance="@style/TextViewCustomFont"
+                    android:textSize="18sp"
+                    android:text="Release Date: " />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Director: " />
+
+                <TextView
+                    android:id="@+id/txt_director"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Release Date: " />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Writers: " />
+
+                <TextView
+                    android:id="@+id/txt_writers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Release Date: " />
+            </GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.FontPath"
+                android:textSize="24sp"
+                android:text="Overview: " />
+
+            <TextView
+                android:id="@+id/txt_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:letterSpacing=".05"
+                android:textAppearance="@style/TextViewCustomFont"
+                android:text="Release Date: " />
+        </LinearLayout>
+
+    </FrameLayout>
+
